@@ -1,0 +1,9 @@
+[package]
+name = 'copyright-token'
+version = '1.0.0'
+
+[addresses]
+CopyrightCoin = "0x5e603a89cf690d7134cf2f24fdb16ba90c4f5686333721c12e835fb6c76bc7ba"
+
+[dependencies]
+AptosFramework = { local = "/home/ogn/denemeler/aptos-core/aptos-move/framework/aptos-framework" }
