@@ -7,7 +7,7 @@
 // dotenv.config();
 
 import {AptosClient, AptosAccount, CoinClient, FaucetClient,HexString} from "aptos";
-import {NODE_URL, FAUCET_URL} from "./common";
+import {NODE_URL, FAUCET_URL,aptosCoinStore} from "./common";
 import * as yaml from 'js-yaml';
 import * as fs from 'fs';
 
@@ -33,7 +33,7 @@ import * as fs from 'fs';
 
     console.log(alice.address()); // account adresini yazdir
 
-    const accountAddress = "0x89576037b3cc0b89645ea393a47787bb348272c76d6941c574b053672b848039";
+    const accountAddress = "0xcbd5548efc824acffcd78b6b31a440fcc7424e0d5bad27300e5c67cb4766e51";
 
     // Create accounts.
     // :!:>section_2
@@ -60,9 +60,9 @@ import * as fs from 'fs';
 
     // Have Alice send Bob some AptosCoins.
     // :!:>section_5
-    let txnHash = await coinClient.transfer(alice, accountAddress, 1_000, {gasUnitPrice: BigInt(100),coinType: "0x1::aptos_coin::AptosCoin"}); // <:!:section_5
+    let txnHash = await coinClient.transfer(alice, accountAddress, 1_000_000, {coinType: aptosCoinStore}); // <:!:section_5
     // :!:>section_6a
-    await client.waitForTransaction(txnHash); // <:!:section_6a
+    await client.waitForTransaction(txnHash, {checkSuccess: true}); // <:!:section_6a
 
     // Print out intermediate balances.
     console.log("=== Intermediate Balances ===");
@@ -71,7 +71,7 @@ import * as fs from 'fs';
     console.log("");
 
     // Have Alice send Bob some more AptosCoins.
-    txnHash = await coinClient.transfer(alice, accountAddress, 1_000);
+    txnHash = await coinClient.transfer(alice, accountAddress, 1_000_000, {coinType: aptosCoinStore});
     // :!:>section_6b
     await client.waitForTransaction(txnHash, {checkSuccess: true}); // <:!:section_6b
 
