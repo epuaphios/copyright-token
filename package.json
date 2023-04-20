@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@stablelib/hex": "^1.0.1",
     "aptos": "^1.8.4",
     "dotenv": "^16.0.3",
     "interpolate-json": "^3.0.0",
