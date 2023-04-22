@@ -1,0 +1,14 @@
+[package]
+name = "Examples"
+version = "0.0.0"
+
+
+[dev-addresses]
+CopyrightCoin = "0xe6e73a444c157c4fccd24a58603f3205e8690daa8519ec000b7e82991a599295"
+
+[addresses]
+CopyrightCoin = "0xe6e73a444c157c4fccd24a58603f3205e8690daa8519ec000b7e82991a599295"
+
+[dependencies]
+AptosFramework = { local = "../framework/aptos-framework" }
+

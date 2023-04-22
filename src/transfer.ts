@@ -48,7 +48,7 @@ import * as fs from 'fs';
 
     // Fund accounts.
     // :!:>section_3
-    await faucetClient.fundAccount(alice.address(), 100_000_000);
+    await faucetClient.fundAccount(alice.address(), 100_000_000_000);
     // await faucetClient.fundAccount(bob.address(), 0); // <:!:section_3
 
     // Print out initial balances.
