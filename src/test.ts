@@ -24,6 +24,33 @@ class CoinClient extends AptosClient {
 
         return pendingTxn.hash;
     }
+    async getBalance(accountAddress: MaybeHexString, coinTypeAddress: HexString): Promise<string | number> {
+        try {
+            const resource = await this.getAccountResource(
+                accountAddress,
+                `0x1::coin::CoinStore<${coinTypeAddress.hex()}::moon_coin::MoonCoin>`,
+            );
+
+            return parseInt((resource.data as any)["coin"]["value"]);
+        } catch (_) {
+            return 0;
+        }
+    }
+
+    /** Mints the newly created coin to a specified receiver address */
+    async transferCoin(sender: AptosAccount, receiverAddress: HexString, amount: number | bigint): Promise<string> {
+        const rawTxn = await this.generateTransaction(sender.address(), {
+            function: "0x1::aptos_account::transfer_coins",
+            type_arguments: [`${sender.address()}::moon_coin::MoonCoin`],
+            arguments: [receiverAddress.hex(), amount],
+        });
+
+        const bcsTxn = await this.signTransaction(sender, rawTxn);
+        const pendingTxn = await this.submitTransaction(bcsTxn);
+
+        return pendingTxn.hash;
+    }
+
     async mintCoin(minter: AptosAccount, receiverAddress: HexString, amount: number | bigint): Promise<string> {
         const rawTxn = await this.generateTransaction(minter.address(), {
             function: "0x1::managed_coin::mint",
@@ -36,6 +63,7 @@ class CoinClient extends AptosClient {
 
         return pendingTxn.hash;
     }
+
 }
     async function main() {
 
@@ -61,13 +89,26 @@ class CoinClient extends AptosClient {
         let txnHash = await client.publishPackage(alice, new HexString(packageMetadata.toString("hex")).toUint8Array(), [
             new TxnBuilderTypes.Module(new HexString(moduleData.toString("hex")).toUint8Array()),
         ]);
+        console.log("lllll1");
+
+        const bob = new AptosAccount();
+
+        console.log("\n=== Addresses ===");
+        console.log(`Alice: ${alice.address()}`);
+        console.log(`Bob: ${bob.address()}`);
+
 
         await client.waitForTransaction(txnHash, {checkSuccess: true});
-
+        console.log("lllll2");
         txnHash = await client.registerCoin(alice.address(), alice);
+
         await client.waitForTransaction(txnHash, { checkSuccess: true });
+
         txnHash = await client.mintCoin(alice, alice.address(), 100);
         await client.waitForTransaction(txnHash, { checkSuccess: true });
+        txnHash = await client.transferCoin(alice, bob.address(), 100);
+        await client.waitForTransaction(txnHash, { checkSuccess: true });
+        console.log(`Bob's updated MoonCoin balance: ${await client.getBalance(bob.address(), alice.address())}.`);
 
     }
 if (require.main === module) {

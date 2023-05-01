@@ -60,7 +60,7 @@ import * as fs from 'fs';
 
     // Have Alice send Bob some AptosCoins.
     // :!:>section_5
-    let txnHash = await coinClient.transfer(alice, accountAddress, 1_000_000, {coinType: aptosCoinStore}); // <:!:section_5
+    let txnHash = await coinClient.transfer(alice, accountAddress, 100, {coinType: aptosCoinStore}); // <:!:section_5
     // :!:>section_6a
     await client.waitForTransaction(txnHash, {checkSuccess: true}); // <:!:section_6a
 
