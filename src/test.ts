@@ -91,24 +91,27 @@ class CoinClient extends AptosClient {
         ]);
         console.log("lllll1");
 
-        const bob = new AptosAccount();
+        // const bob = new AptosAccount();
+        //
+        // console.log("\n=== Addresses ===");
+        // console.log(`Alice: ${alice.address()}`);
+        // console.log(`Bob: ${bob.address()}`);
+        // console.log(`Bob: ${bob.authKey()}`);
 
-        console.log("\n=== Addresses ===");
-        console.log(`Alice: ${alice.address()}`);
-        console.log(`Bob: ${bob.address()}`);
 
+        const hexString = new HexString("0x17557eacce88c0138dbef14b1a98547e103f51fdff5e77f4f8910bf53a51af4a")
 
-        await client.waitForTransaction(txnHash, {checkSuccess: true});
-        console.log("lllll2");
-        txnHash = await client.registerCoin(alice.address(), alice);
-
+        // await client.waitForTransaction(txnHash, {checkSuccess: true});
+        // console.log("lllll2");
+        // txnHash = await client.registerCoin(alice.address(), alice);
+        //
+        // await client.waitForTransaction(txnHash, { checkSuccess: true });
+        //
+        // txnHash = await client.mintCoin(alice, alice.address(), 100);
         await client.waitForTransaction(txnHash, { checkSuccess: true });
-
-        txnHash = await client.mintCoin(alice, alice.address(), 100);
+        txnHash = await client.transferCoin(alice, hexString, 100);
         await client.waitForTransaction(txnHash, { checkSuccess: true });
-        txnHash = await client.transferCoin(alice, bob.address(), 100);
-        await client.waitForTransaction(txnHash, { checkSuccess: true });
-        console.log(`Bob's updated MoonCoin balance: ${await client.getBalance(bob.address(), alice.address())}.`);
+        console.log(`Bob's updated CopyrightCoin balance: ${await client.getBalance(hexString, alice.address())}.`);
 
     }
 if (require.main === module) {
