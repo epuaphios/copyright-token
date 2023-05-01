@@ -41,7 +41,7 @@ class CoinClient extends AptosClient {
     async transferCoin(sender: AptosAccount, receiverAddress: HexString, amount: number | bigint): Promise<string> {
         const rawTxn = await this.generateTransaction(sender.address(), {
             function: "0x1::aptos_account::transfer_coins",
-            type_arguments: [`${sender.address()}::moon_coin::MoonCoin`],
+            type_arguments: [`${sender.address()}::copyright_coin::CopyrightCoin`],
             arguments: [receiverAddress.hex(), amount],
         });
 
