@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { NODE_URL, FAUCET_URL } from "./common";
+import { NODE_URL } from "./common";
 import { AptosAccount, AptosClient, TxnBuilderTypes, MaybeHexString, HexString, FaucetClient } from "aptos";import * as path from "path";
 import * as yaml from "js-yaml";
 
@@ -28,7 +28,7 @@ class CoinClient extends AptosClient {
         try {
             const resource = await this.getAccountResource(
                 accountAddress,
-                `0x1::coin::CoinStore<${coinTypeAddress.hex()}::moon_coin::MoonCoin>`,
+                `0x1::coin::CoinStore<${coinTypeAddress.hex()}::copyright_coin::CopyrightCoin>`,
             );
 
             return parseInt((resource.data as any)["coin"]["value"]);
@@ -99,7 +99,7 @@ class CoinClient extends AptosClient {
         // console.log(`Bob: ${bob.authKey()}`);
 
 
-        const hexString = new HexString("0x17557eacce88c0138dbef14b1a98547e103f51fdff5e77f4f8910bf53a51af4a")
+        // const hexString = new HexString("0x17557eacce88c0138dbef14b1a98547e103f51fdff5e77f4f8910bf53a51af4a")
 
         // await client.waitForTransaction(txnHash, {checkSuccess: true});
         // console.log("lllll2");
@@ -109,9 +109,9 @@ class CoinClient extends AptosClient {
         //
         // txnHash = await client.mintCoin(alice, alice.address(), 100);
         await client.waitForTransaction(txnHash, { checkSuccess: true });
-        txnHash = await client.transferCoin(alice, hexString, 100);
+        txnHash = await client.mintCoin(alice, alice.address(), 1000);
         await client.waitForTransaction(txnHash, { checkSuccess: true });
-        console.log(`Bob's updated CopyrightCoin balance: ${await client.getBalance(hexString, alice.address())}.`);
+        // console.log(`Bob's updated CopyrightCoin balance: ${await client.getBalance(alice.address(),alice.address())}.`);
 
     }
 if (require.main === module) {

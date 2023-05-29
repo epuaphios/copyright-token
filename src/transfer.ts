@@ -7,7 +7,7 @@
 // dotenv.config();
 
 import {AptosClient, AptosAccount, CoinClient, FaucetClient,HexString} from "aptos";
-import {NODE_URL, FAUCET_URL,aptosCoinStore} from "./common";
+import {NODE_URL,aptosCoinStore} from "./common";
 import * as yaml from 'js-yaml';
 import * as fs from 'fs';
 
@@ -16,7 +16,7 @@ import * as fs from 'fs';
     // Create API and faucet clients.
     // :!:>section_1
     const client = new AptosClient(NODE_URL);
-    const faucetClient = new FaucetClient(NODE_URL, FAUCET_URL); // <:!:section_1
+    // const faucetClient = new FaucetClient(NODE_URL, FAUCET_URL); // <:!:section_1
     const fileContents = fs.readFileSync('.aptos/config.yaml', 'utf8');
     const data: any = yaml.load(fileContents);
     // console.log(data);
@@ -48,7 +48,7 @@ import * as fs from 'fs';
 
     // Fund accounts.
     // :!:>section_3
-    await faucetClient.fundAccount(alice.address(), 100_000_000_000);
+    // await faucetClient.fundAccount(alice.address(), 100_000_000_000);
     // await faucetClient.fundAccount(bob.address(), 0); // <:!:section_3
 
     // Print out initial balances.
