@@ -4,6 +4,12 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/copyright_coin/build" />
+      <excludeFolder url="file://$MODULE_DIR$/framework/aptos-framework/build" />
+      <excludeFolder url="file://$MODULE_DIR$/framework/aptos-stdlib/build" />
+      <excludeFolder url="file://$MODULE_DIR$/framework/aptos-token-objects/build" />
+      <excludeFolder url="file://$MODULE_DIR$/framework/aptos-token/build" />
+      <excludeFolder url="file://$MODULE_DIR$/framework/move-stdlib/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

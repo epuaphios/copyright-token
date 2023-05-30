@@ -7,7 +7,7 @@
 // dotenv.config();
 
 import {AptosClient, AptosAccount, CoinClient, FaucetClient,HexString} from "aptos";
-import {NODE_URL,aptosCoinStore} from "./common";
+import {NODE_URL,FAUCET_URL,aptosCoinStore} from "./common";
 import * as yaml from 'js-yaml';
 import * as fs from 'fs';
 
@@ -33,7 +33,9 @@ import * as fs from 'fs';
 
     console.log(alice.address()); // account adresini yazdir
 
-    const accountAddress = "0xcbd5548efc824acffcd78b6b31a440fcc7424e0d5bad27300e5c67cb4766e51";
+    const accountAddress = new HexString("0x9399b56f9283799b6f44a8e5979090b56433a04ead7ea481e14231e88379b43b")
+
+    // const accountAddress = "0x9399b56f9283799b6f44a8e5979090b56433a04ead7ea481e14231e88379b43b";
 
     // Create accounts.
     // :!:>section_2
@@ -43,24 +45,27 @@ import * as fs from 'fs';
     // Print out account addresses.
     console.log("=== Addresses ===");
     console.log(`Alice: ${alice.address()}`);
-    // console.log(`Bob: ${bob.address()}`);
+    console.log(`Bob: ${accountAddress}`);
     console.log("");
 
     // Fund accounts.
     // :!:>section_3
-    // await faucetClient.fundAccount(alice.address(), 100_000_000_000);
-    // await faucetClient.fundAccount(bob.address(), 0); // <:!:section_3
-
+    // await faucetClient.fundAccount(accountAddress, 100_000_000_000);
+    // await faucetClient.fundAccount(accountAddress, 0); // <:!:section_3
+    // Have Alice send Bob some more AptosCoins.
+    let txnHash = await coinClient.transfer(alice, accountAddress, 100_000 ,{ createReceiverIfMissing: true });
+    // :!:>section_6b
+    await client.waitForTransaction(txnHash, {checkSuccess: true}); // <:!:section_6b
     // Print out initial balances.
     console.log("=== Initial Balances ===");
     // :!:>section_4
-    console.log(`Alice: ${await coinClient.checkBalance(alice)}`);
+    console.log(`Alice: ${await coinClient.checkBalance(alice, {coinType: aptosCoinStore})}`);
     // console.log(`Bob: ${await coinClient.checkBalance(bob)}`); // <:!:section_4
     console.log("");
 
     // Have Alice send Bob some AptosCoins.
     // :!:>section_5
-    let txnHash = await coinClient.transfer(alice, accountAddress, 100, {coinType: aptosCoinStore}); // <:!:section_5
+    txnHash = await coinClient.transfer(alice, accountAddress, 100, {coinType: aptosCoinStore , createReceiverIfMissing: true}); // <:!:section_5
     // :!:>section_6a
     await client.waitForTransaction(txnHash, {checkSuccess: true}); // <:!:section_6a
 

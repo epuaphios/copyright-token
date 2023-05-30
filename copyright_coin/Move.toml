@@ -6,7 +6,7 @@ version = "0.0.0"
 CopyrightCoin = "0xe6e73a444c157c4fccd24a58603f3205e8690daa8519ec000b7e82991a599295"
 
 [addresses]
-CopyrightCoin = "0x149154bd643cdb8100afa10dacacfc0362172438da15f8a92574597ca31328f"
+CopyrightCoin = "0x166096e95c5da9f7d4ad03f989c9635a50f2ce9e0381e1dfd89bc69fe7d238ee"
 
 [dependencies]
 AptosFramework = { local = "../framework/aptos-framework" }
