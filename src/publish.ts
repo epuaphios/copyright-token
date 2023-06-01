@@ -99,7 +99,6 @@ class CoinClient extends AptosClient {
         // //
         await client.waitForTransaction(txnHash, { checkSuccess: true });
 
-
     }
 if (require.main === module) {
     main().then((resp) => console.log(resp));

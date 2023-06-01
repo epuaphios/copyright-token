@@ -11,7 +11,7 @@ module CopyrightCoin::copyright_coin {
     struct CopyrightCoin {}
 
     const OWNER:address = @CopyrightCoin;
-    const TOTAL_COINS: u64 = 300000000;
+    const TOTAL_COINS: u64 = 500000000;
 
     const INVALID_OWNER:u64 = 1;
 
@@ -56,7 +56,6 @@ module CopyrightCoin::copyright_coin {
         let coins = coin::withdraw<CopyrightCoin>(sender,amount_burn);
         coin::burn(coins,&burn_cap.burn_cap);
     }
-
 }
 //<:!:copyrigh_coin
 
